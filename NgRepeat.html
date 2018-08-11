@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<script src="C:\Program Files\angular.min.js"></script>
+<!--<script src="C:\Users\Anil kumar\Desktop\AngularPractice\script.js"></script>-->
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div>
+<ul>
+	<li ng-repeat="country in countries1">
+		{{country.name}}
+
+		<ul>
+			<li ng-repeat="city in country.name"></li>
+			{{city.name}}
+		</ul>
+	</li>
+</ul>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+   var countries=[
+                    {name:UK,
+                    	cities:[
+                    	{name:"London"},
+                    	{name:"Manchester"},
+                    	{name:"Birgingham"}
+                    	];
+                    },
+                    {name:USA,
+                    	cities:[
+                    	{name:"NewYork"},
+                    	{name:"Washington"},
+                    	{name:"LasVegas"}
+                    	];
+                    },
+                    {name:India,
+                    	cities:[In
+                    	{name:"Delhi"},
+                    	{name:"Mumbai"},
+                    	{name:"Bangalore"}
+                    	];
+                    },
+                ];
+   $scope.countries1=countries;
+});
+</script>
+</body>
+</html>
