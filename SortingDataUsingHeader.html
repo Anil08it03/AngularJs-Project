@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+.arrow-up
+{
+	width:0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 10px solid black;
+    display: inline-block;
+}
+.arrow-down
+{
+	width:0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 10px solid black;
+    display: inline-block;
+}
+table
+{
+ border-collapse: collapse;
+ border-color: green;
+ font-family: Arial;
+ background-color: #FFC107;;
+}
+td
+{
+	padding: :5px;
+	border:1px solid black;
+}
+th
+{
+	padding: 5px;
+	text-align: left;
+	border: 1px solid black;
+	cursor: pointer;
+}
+#td1
+{
+	/*font-size: 22px;*/
+	font-weight: bold;
+	color:#673AB7;
+}
+</style>
+<script src="C:\Program Files\angular.min.js"></script>
+<!--<script src="C:\Users\Anil kumar\Desktop\AngularPractice\script.js">ng-init="parentIndex=$index"</script>-->
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div>
+	   <div class="col-md-12">
+	        <div>Limit rows to display by using select_button: <input type="number" set="1" min="0" max="5" ng-model="rowsLimit"></div>
+	   </div>
+	    <br>
+	   
+	<table>
+	 <thead>
+	 	<tr>
+	 		<th ng-click="sortData('name')">Name
+	 			<div ng-class="getSortClass('name')"></div></th>
+	 			<th ng-click="sortData('likes')">Likes
+	 			<div ng-class="getSortClass('likes')"></div></th>
+	 			<th ng-click="sortData('disLikes')">Dislikes
+	 			<div ng-class="getSortClass('disLikes')"></div></th>
+	 			<th>Likes/disLikes</th>
+	 			<th ng-click="sortData('dates')">DateOfPublish
+	 			<div ng-class="getSortClass('dates')"></div></th>
+	 			<th ng-click="sortData('cost')">Cost(number)
+	 			<div ng-class="getSortClass('cost')"></div></th>
+	 			<th ng-click="sortData('cost')">Cost(currency)
+	 			<div ng-class="getSortClass('cost')"></div></th>
+	 	</tr>
+	 </thead>
+	 <tbody>
+	 	<!--<tr ng-repeat="technology in technologies |limitTo:2:2">It specifies no.of rows and grom what index the table to be start-->
+
+	 		<tr ng-repeat="technology in technologies |limitTo:rowsLimit |orderBy:sortColumn:reverseSort"><!-- it will dynamically increase/decrese the table size-->
+	 		<td id=td1>{{technology.name|lowercase}}</td>
+	 		<td>{{technology.likes}}</td>
+	 		<td>{{technology.disLikes}}</td>
+	 		<td><input type="button" value="likes" ng-click="increamentLikes(technology)">
+	 			<input type="button" value="disLikes" ng-click="increamentDisLikes(technology)"></td>
+	 			<td>{{technology.dates|date:dd/MMM/yyyy}}</td>
+	 			<td>{{technology.cost|number:2}}</td>
+	 			<td>{{technology.cost|currency:"£":2}}</td>
+	 	</tr>
+	 </tbody>
+</table>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+   var technologies=[
+                      {name:"C#",likes:0,disLikes:0,dates:new Date("November 30,1998"),cost:55000.322},
+                      {name:"Java",likes:0,disLikes:0,dates:new Date("November 23,1998"),cost:53000},
+                      {name:"C",likes:0,disLikes:0,dates:new Date("November 13,1998"),cost:523202},
+                      {name:"AngularJS",likes:0,disLikes:0,dates:new Date("November 24,1998"),cost:345675},
+                      {name:"HTML",likes:0,disLikes:0,dates:new Date("November 12,1998"),cost:234567},
+                      {name:"CSS",likes:0,disLikes:0,dates:new Date("November 29,1998"),cost:234566}
+                    ];
+   $scope.technologies=technologies;
+   $scope.increamentLikes=function(technology)
+   {
+     technology.likes++;
+   }
+   $scope.increamentDisLikes=function(technology)
+   {
+     technology.disLikes++;
+   }
+   //$scope.rowsLimit="3";/*it will display upto rowslimit by default*/
+   //$scope.rowsLimit="limitTo";/*it will display upto max rowslimit by default*/
+   $scope.rowsLimit=3;
+   $scope.sortColumn="name";
+   $scope.reverseSort="false";
+
+   $scope.sortData=function(column)
+   {
+   	$scope.reverseSort=($scope.sortColumn==column)? !$scope.reverseSort : false;
+   	$scope.sortColumn=column;
+   }
+   $scope.getSortClass=function(column)
+   {
+     if($scope.sortColumn==column)
+     {
+     	return $scope.reverseSort ? 'arrow-down' : 'arrow-up';
+     }
+     return ' ';
+   }
+});
+</script>
+</body>
+</html>
