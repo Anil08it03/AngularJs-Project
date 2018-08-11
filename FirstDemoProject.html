@@ -3,13 +3,14 @@
 <script src="C:/Program Files/angular.min.js"></script>
 
 <body ng-app="myApp" >
- <p>Try to change the names.</p>
+ <p>Type your First & Last Name</p>
 
 <div ng-controller="myCtrl">
 
 First Name: <input type="text" ng-model="firstName"><br>
 Last Name: <input type="text" ng-model="lastName"><br>
 <br>
+<p> Full Name will Change Dynamicall if you change your first name or last name</p>
 Full Name: {{firstName + " " + lastName}}
 
 </div>
