@@ -1,2 +1,2 @@
 # hello-world
-just another repository
+Here is my some small Projects on Angular JS
